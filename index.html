@@ -6,6 +6,7 @@
 <title>سجل المرأة الريفية — إدارة مسقط للثروة الزراعية وموارد المياه</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&family=Reem+Kufi:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
 <style>
   :root{
     --night:#0C2620; --emerald:#123A30; --emerald-soft:#1B4A3D;
@@ -435,6 +436,159 @@
     text-align:center;font-size:11.5px;color:#666;font-family:'Reem Kufi',sans-serif;
   }
 
+  /* ═══ مزايا لوحة التصميم بهوية المرأة الريفية ═══ */
+  /* بطاقات الإحصائيات KPI */
+  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+  @media(max-width:820px){.kpi-row{grid-template-columns:repeat(2,1fr);}}
+  .kpi{
+    display:flex;align-items:center;gap:12px;background:#fff;
+    border:1px solid var(--sand-line);border-radius:14px;padding:14px 16px;
+    box-shadow:0 8px 22px rgba(12,38,32,.08);
+  }
+  .kpi .kic{width:44px;height:44px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  .kpi .kic svg{width:21px;height:21px;}
+  .kpi .lbl{font-family:'Reem Kufi',sans-serif;font-size:11.5px;color:var(--ink-soft);font-weight:600;}
+  .kpi .val{font-family:'Aref Ruqaa',serif;font-size:26px;color:var(--emerald);line-height:1.3;}
+  .kic.k-total{background:rgba(18,58,48,.08);color:var(--emerald);}
+  .kic.k-pend{background:rgba(154,107,18,.12);color:var(--pending);}
+  .kic.k-ok{background:rgba(62,122,78,.12);color:var(--ok);}
+  .kic.k-no{background:rgba(140,58,44,.1);color:var(--danger);}
+
+  /* شريط الأدوات */
+  .reg-toolbar{
+    display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+    background:#fff;border:1px solid var(--sand-line);border-radius:14px;
+    padding:11px 13px;margin-bottom:20px;box-shadow:0 8px 22px rgba(12,38,32,.06);
+  }
+  .reg-toolbar .search-wrap{position:relative;flex:1;min-width:190px;}
+  .reg-toolbar .search-wrap input{
+    width:100%;font-family:'Cairo',sans-serif;font-size:13.5px;
+    padding:9px 36px 9px 12px;background:var(--ivory);
+    border:1.5px solid var(--sand-line);border-radius:9px;outline:none;
+  }
+  .reg-toolbar .search-wrap input:focus{border-color:var(--gold);background:#fff;}
+  .reg-toolbar .search-wrap svg{
+    position:absolute;right:11px;top:50%;transform:translateY(-50%);
+    width:16px;height:16px;color:var(--gold-deep);pointer-events:none;
+  }
+  .reg-toolbar select{
+    font-family:'Reem Kufi',sans-serif;font-size:12px;
+    padding:9px 12px;background:var(--ivory);color:var(--ink);
+    border:1.5px solid var(--sand-line);border-radius:9px;outline:none;max-width:220px;
+  }
+  .tbtn{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:'Reem Kufi',sans-serif;font-size:12px;font-weight:600;
+    background:#fff;border:1.5px solid var(--sand-line);border-radius:9px;
+    padding:8px 14px;color:var(--emerald);cursor:pointer;transition:all .15s;
+  }
+  .tbtn svg{width:15px;height:15px;}
+  .tbtn:hover{border-color:var(--gold);background:rgba(201,162,75,.08);}
+  .tbtn.gold{background:linear-gradient(135deg,var(--gold-light),var(--gold));border-color:var(--gold-deep);color:var(--night);}
+  .view-toggle{display:flex;border:1.5px solid var(--sand-line);border-radius:9px;overflow:hidden;}
+  .view-toggle button{
+    font-family:'Reem Kufi',sans-serif;font-size:11.5px;font-weight:600;
+    background:#fff;border:none;padding:8px 14px;cursor:pointer;color:var(--ink-soft);
+    display:inline-flex;align-items:center;gap:5px;
+  }
+  .view-toggle button svg{width:14px;height:14px;}
+  .view-toggle button.active{background:var(--emerald);color:var(--gold-light);}
+
+  /* الجدول الموحد */
+  .table-wrap{
+    background:#fff;border:1px solid var(--sand-line);border-radius:14px;
+    overflow:auto;box-shadow:0 10px 26px rgba(12,38,32,.08);
+  }
+  .dtable{width:100%;border-collapse:separate;border-spacing:0;font-size:12.8px;min-width:860px;}
+  .dtable thead th{
+    background:var(--emerald);color:var(--gold-light);
+    font-family:'Reem Kufi',sans-serif;font-weight:600;font-size:12px;
+    padding:12px 12px;text-align:right;white-space:nowrap;
+    position:sticky;top:0;z-index:1;
+  }
+  .dtable tbody td{
+    padding:11px 12px;border-bottom:1px solid #EFE7D2;
+    color:var(--ink);white-space:nowrap;background:#fff;
+  }
+  .dtable tbody tr:hover td{background:var(--ivory);}
+  .dtable tbody tr.row-pending td{background:#FDF9EE;}
+  .dtable .num{font-family:'Cairo',sans-serif;color:var(--ink-soft);}
+  .row-acts{display:flex;gap:3px;}
+  .iact{
+    width:29px;height:29px;border-radius:8px;border:none;cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:transparent;transition:background .15s;
+  }
+  .iact svg{width:15.5px;height:15.5px;}
+  .iact.v{color:var(--emerald);} .iact.ok-a{color:var(--ok);} .iact.no-a{color:var(--pending);}
+  .iact.p{color:var(--gold-deep);} .iact.d{color:var(--danger);}
+  .iact:hover{background:rgba(201,162,75,.14);}
+
+  /* شاشة التفاصيل */
+  .detail-modal{max-width:640px;text-align:right;max-height:88vh;overflow:auto;}
+  .detail-modal h3{text-align:center;}
+  .drow{
+    display:grid;grid-template-columns:135px 1fr;gap:10px;
+    padding:8px 2px;border-bottom:1px dashed var(--sand-line);
+    font-size:13px;align-items:center;
+  }
+  .drow .k{font-family:'Reem Kufi',sans-serif;font-weight:600;color:var(--ink-soft);font-size:11.5px;}
+  .drow .v{color:var(--ink);font-weight:600;}
+  .detail-modal .dphotos{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;}
+  .detail-modal .dphotos img{width:86px;height:86px;object-fit:cover;border-radius:9px;border:2px solid var(--gold);}
+  .detail-modal .modal-acts{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+  @media(max-width:520px){.drow{grid-template-columns:1fr;gap:2px;}}
+
+  /* رسائل التنبيه Toasts */
+  #toasts{
+    position:fixed;top:78px;left:16px;z-index:100;
+    display:flex;flex-direction:column;gap:9px;max-width:330px;
+  }
+  .toast{
+    display:flex;align-items:center;gap:9px;
+    border-radius:11px;padding:11px 15px;font-size:12.8px;font-weight:600;
+    font-family:'Reem Kufi',sans-serif;border:1px solid;
+    box-shadow:0 12px 30px rgba(12,38,32,.2);
+    animation:toastIn .25s ease;background:#fff;
+  }
+  @keyframes toastIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:none;}}
+  .toast svg{width:17px;height:17px;flex-shrink:0;}
+  .toast.ok{color:var(--ok);border-color:rgba(62,122,78,.4);background:#F1F8F2;}
+  .toast.er{color:var(--danger);border-color:rgba(140,58,44,.4);background:#FBF0EE;}
+  .toast.wa{color:#8f6f0e;border-color:rgba(196,154,30,.45);background:#FBF5E4;}
+  .toast.in{color:var(--emerald);border-color:rgba(18,58,48,.3);background:#EFF5F1;}
+
+  /* نافذة التأكيد */
+  .confirm-modal .cic{
+    width:46px;height:46px;border-radius:12px;margin:0 auto 10px;
+    background:rgba(140,58,44,.1);color:var(--danger);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .confirm-modal .cic svg{width:22px;height:22px;}
+  .confirm-modal button.danger{
+    background:var(--danger);color:#fff;font-weight:600;
+  }
+
+  /* حالات النظام */
+  .sys-state{
+    text-align:center;padding:52px 20px;background:#fff;
+    border:1px dashed var(--gold);border-radius:16px;color:var(--ink-soft);
+  }
+  .sys-state .st-ic{
+    width:54px;height:54px;border-radius:50%;background:var(--ivory);
+    border:1px solid var(--sand-line);margin:0 auto 12px;
+    display:flex;align-items:center;justify-content:center;color:var(--gold-deep);
+  }
+  .sys-state .st-ic svg{width:25px;height:25px;}
+  .sys-state b{display:block;font-family:'Amiri',serif;font-size:16px;color:var(--emerald);margin-bottom:4px;}
+  .sys-state span{font-size:12.5px;line-height:1.9;}
+  .spinner{
+    width:28px;height:28px;border-radius:50%;
+    border:3px solid var(--ivory-deep);border-top-color:var(--gold);
+    animation:rot .9s linear infinite;
+  }
+  @keyframes rot{to{transform:rotate(360deg);}}
+
   footer{background:var(--night);color:#AFC6B8;text-align:center;padding:34px 20px;font-size:12.5px;line-height:2.1;}
   footer b{color:var(--gold-light);font-family:'Reem Kufi',sans-serif;font-weight:500;}
 
@@ -798,13 +952,63 @@
 
     <!-- السجل للمصرح لهم -->
     <div id="registryContent" style="display:none;">
-      <div class="gallery-head">
-        <h3 id="galleryTitle">سجل الطلبات</h3>
-        <div class="filter-row" id="filterRow">
-          <button data-f="all" class="active">الكل</button>
-        </div>
+      <div class="kpi-row" id="kpiRow">
+        <div class="kpi"><div class="kic k-total"><i data-lucide="files"></i></div><div><div class="lbl">إجمالي الطلبات</div><div class="val" id="k_total">0</div></div></div>
+        <div class="kpi"><div class="kic k-pend"><i data-lucide="clock"></i></div><div><div class="lbl">بانتظار الاعتماد</div><div class="val" id="k_pending">0</div></div></div>
+        <div class="kpi"><div class="kic k-ok"><i data-lucide="check-circle-2"></i></div><div><div class="lbl">معتمد</div><div class="val" id="k_approved">0</div></div></div>
+        <div class="kpi"><div class="kic k-no"><i data-lucide="x-circle"></i></div><div><div class="lbl">مرفوض</div><div class="val" id="k_rejected">0</div></div></div>
       </div>
-      <div id="galleryList" class="grid-gallery"></div>
+
+      <div class="reg-toolbar">
+        <div class="search-wrap">
+          <input type="text" id="regSearch" placeholder="بحث بالاسم، الرقم المدني، الولاية، الموضوع...">
+          <i data-lucide="search"></i>
+        </div>
+        <select id="typeFilter"><option value="all">كل أنواع الطلبات</option></select>
+        <select id="statusFilter">
+          <option value="all">كل الحالات</option>
+          <option value="pending">بانتظار الاعتماد</option>
+          <option value="approved">معتمد</option>
+          <option value="rejected">مرفوض</option>
+        </select>
+        <div class="view-toggle">
+          <button id="viewTable" class="active"><i data-lucide="table-2"></i> جدول</button>
+          <button id="viewCards"><i data-lucide="layout-grid"></i> بطاقات</button>
+        </div>
+        <button class="tbtn" id="refreshBtn"><i data-lucide="refresh-cw"></i> تحديث</button>
+        <button class="tbtn gold" id="exportBtn"><i data-lucide="file-spreadsheet"></i> تصدير Excel</button>
+      </div>
+
+      <div class="sys-state" id="regLoading" style="display:none;">
+        <div class="st-ic"><div class="spinner"></div></div>
+        <b>تحميل البيانات</b>
+        <span>جاري تحميل سجل الطلبات...</span>
+      </div>
+
+      <div class="table-wrap" id="tableWrap">
+        <table class="dtable">
+          <thead>
+            <tr>
+              <th>#</th><th>اسم المستفيدة</th><th>الرقم المدني</th><th>الولاية</th>
+              <th>نوع الطلب</th><th>الدعم السابق</th><th>الحالة</th><th>التاريخ</th><th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
+      <div id="galleryList" class="grid-gallery" style="display:none;"></div>
+
+      <div class="sys-state" id="regEmpty" style="display:none;">
+        <div class="st-ic"><i data-lucide="inbox"></i></div>
+        <b>لا توجد بيانات</b>
+        <span>لا توجد طلبات مسجلة بعد</span>
+      </div>
+      <div class="sys-state" id="regNoResults" style="display:none;">
+        <div class="st-ic"><i data-lucide="search-x"></i></div>
+        <b>لا توجد نتائج</b>
+        <span>لم يتم العثور على نتائج مطابقة<br>جرّبي البحث بكلمات أخرى أو غيّري الفلاتر</span>
+      </div>
     </div>
   </section>
 
@@ -932,6 +1136,30 @@
   </div>
 </div>
 
+<!-- شاشة تفاصيل الطلب الموحدة -->
+<div class="overlay" id="detailOverlay">
+  <div class="modal detail-modal">
+    <h3>تفاصيل الطلب</h3>
+    <div id="detailBody"></div>
+    <div class="modal-acts" id="detailActs"></div>
+  </div>
+</div>
+
+<!-- نافذة تأكيد موحدة -->
+<div class="overlay" id="confirmOverlay">
+  <div class="modal confirm-modal">
+    <div class="cic"><i data-lucide="alert-triangle"></i></div>
+    <h3>تأكيد الإجراء</h3>
+    <p id="confirmText">هل أنت متأكدة؟</p>
+    <button class="danger" id="confirmYes">تأكيد</button>
+    &nbsp;
+    <button id="confirmNo" style="background:transparent;color:var(--ink-soft);border:1px solid var(--sand-line);">إلغاء</button>
+  </div>
+</div>
+
+<!-- رسائل التنبيه -->
+<div id="toasts"></div>
+
 <!-- ═══════ الرسالة الرسمية (تظهر عند الطباعة فقط) ═══════ -->
 <div id="printLetter" dir="rtl">
   <div class="pl-bismillah">بسم الله الرحمن الرحيم</div>
@@ -977,6 +1205,10 @@ let remoteStats = null;
 let remoteOk = false;
 let currentFilter = 'all';
 let lastSubmitted = null;
+let viewMode = 'table';
+let searchQuery = '';
+let statusFilterVal = 'all';
+let regLoadingFlag = false;
 
 /* ---------- أدوات ---------- */
 async function sha256(text){
@@ -988,6 +1220,38 @@ function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 function isRemoteConfigured(){ return !!APPS_SCRIPT_URL && APPS_SCRIPT_URL.trim() !== ''; }
+
+/* ---------- مزايا لوحة التصميم: تنبيهات، تأكيد، أيقونات ---------- */
+function icons(){ try{ lucide.createIcons(); }catch(e){} }
+
+const TOAST_ICONS = {ok:'check-circle-2', er:'x-circle', wa:'alert-triangle', in:'info'};
+function toast(type, msg){
+  const box = document.getElementById('toasts');
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.innerHTML = `<i data-lucide="${TOAST_ICONS[type]||'info'}"></i><span>${escapeHtml(msg)}</span>`;
+  box.appendChild(el);
+  icons();
+  setTimeout(()=>{ el.style.opacity='0'; el.style.transition='opacity .3s'; setTimeout(()=>el.remove(), 320); }, 4200);
+}
+
+let confirmResolve = null;
+function confirmDialog(text){
+  return new Promise(res=>{
+    confirmResolve = res;
+    document.getElementById('confirmText').textContent = text;
+    document.getElementById('confirmOverlay').classList.add('show');
+    icons();
+  });
+}
+document.getElementById('confirmYes').addEventListener('click', ()=>{
+  document.getElementById('confirmOverlay').classList.remove('show');
+  if(confirmResolve){ confirmResolve(true); confirmResolve = null; }
+});
+document.getElementById('confirmNo').addEventListener('click', ()=>{
+  document.getElementById('confirmOverlay').classList.remove('show');
+  if(confirmResolve){ confirmResolve(false); confirmResolve = null; }
+});
 function fileToBase64(file){
   return new Promise((resolve, reject)=>{
     const r = new FileReader();
@@ -1053,8 +1317,6 @@ function applyRoleUI(){
     r === 'admin' ? '<span class="admin-chip">✓ مسؤولة النظام: عائشة الراشدية</span> — صلاحيات كاملة'
     : r === 'staff' ? '<span class="staff-chip">✓ مختص: ' + escapeHtml(s.u) + '</span> — اطلاع على سجل الطلبات'
     : 'أهلاً بك — سجّلي طلبك أدناه، وسجل الطلبات سري لا يطلع عليه إلا المختصون';
-  document.getElementById('galleryTitle').textContent =
-    r === 'admin' ? 'سجل الطلبات (مع حالات الاعتماد)' : 'سجل الطلبات';
 
   const btn = document.getElementById('loginBtn');
   btn.textContent = r ? 'تسجيل الخروج' : 'دخول المختصين';
@@ -1140,6 +1402,11 @@ document.getElementById('setupClose').addEventListener('click', ()=>document.get
 /* ---------- الاتصال بالسجل المركزي ---------- */
 async function fetchRemoteEntries(){
   if(!isRemoteConfigured()){ refreshStatusUI(); renderAll(); return; }
+  if(isLogged()){
+    regLoadingFlag = true;
+    const l = document.getElementById('regLoading');
+    if(l){ l.style.display=''; document.getElementById('tableWrap').style.display='none'; document.getElementById('galleryList').style.display='none'; }
+  }
   try{
     const s = session();
     const q = s ? ('?user=' + encodeURIComponent(s.u) + '&key=' + encodeURIComponent(s.p)) : '';
@@ -1153,6 +1420,7 @@ async function fetchRemoteEntries(){
       if(s && json.role === 'public'){ sessionStorage.removeItem(SESSION_KEY); applyRoleUI(); return; }
     }else{ remoteOk = false; }
   }catch(err){ remoteOk = false; }
+  regLoadingFlag = false;
   refreshStatusUI();
   renderAll();
 }
@@ -1264,7 +1532,7 @@ document.getElementById('printFormBtn').addEventListener('click', ()=>{
     applicant: document.getElementById('f_applicant').value.trim(),
   };
   if(!d.subject || !d.requestText || !d.applicant){
-    alert('لطباعة الرسالة أكملي على الأقل: الموضوع، نص الطلب، ومقدمة الطلب');
+    toast('wa','لطباعة الرسالة أكملي: الموضوع، نص الطلب، ومقدمة الطلب');
     return;
   }
   printLetter(d);
@@ -1281,7 +1549,7 @@ document.getElementById('f_prev').addEventListener('change', function(){
 /* ---------- إرسال الطلب ---------- */
 document.getElementById('regForm').addEventListener('submit', async function(e){
   e.preventDefault();
-  if(idStore.list.length === 0){ alert('نسخة البطاقة الشخصية مطلوبة'); return; }
+  if(idStore.list.length === 0){ toast('wa','نسخة البطاقة الشخصية مطلوبة'); return; }
   const submitBtn = document.getElementById('submitBtn');
   submitBtn.disabled = true;
   submitBtn.textContent = 'جاري الإرسال...';
@@ -1342,7 +1610,7 @@ document.getElementById('regForm').addEventListener('submit', async function(e){
     idStore.list = []; idStore.render();
     docsStore.list = []; docsStore.render();
   }catch(err){
-    alert('حدث خطأ أثناء الإرسال: ' + err.message);
+    toast('er','حدث خطأ أثناء الإرسال: ' + err.message);
   }finally{
     submitBtn.disabled = false;
     submitBtn.textContent = 'إرسال الطلب';
@@ -1353,7 +1621,7 @@ document.getElementById('regForm').addEventListener('submit', async function(e){
 document.getElementById('eventForm').addEventListener('submit', async function(e){
   e.preventDefault();
   if(!isAdmin()){ openLogin(); return; }
-  if(eventStore.list.length === 0){ alert('أضيفي صورة واحدة على الأقل للفعالية'); return; }
+  if(eventStore.list.length === 0){ toast('wa','أضيفي صورة واحدة على الأقل للفعالية'); return; }
   const btn = document.getElementById('eventSubmitBtn');
   btn.disabled = true;
   btn.textContent = 'جاري النشر...';
@@ -1387,7 +1655,7 @@ document.getElementById('eventForm').addEventListener('submit', async function(e
     this.reset();
     eventStore.list = []; eventStore.render();
   }catch(err){
-    alert('حدث خطأ أثناء النشر: ' + err.message);
+    toast('er','حدث خطأ أثناء النشر: ' + err.message);
   }finally{
     btn.disabled = false;
     btn.textContent = 'نشر الفعالية';
@@ -1412,8 +1680,9 @@ async function updateStatus(id, status){
     try{
       const res = await postAction({action:'updateStatus', id, status, ...authParams()});
       if(!res.success) throw new Error(res.error || 'تعذر التحديث');
+      toast(status==='approved'?'ok':'in', status==='approved'?'تم اعتماد الطلب':'تم تحديث حالة الطلب');
       await fetchRemoteEntries();
-    }catch(err){ alert('خطأ: ' + err.message); }
+    }catch(err){ toast('er','خطأ: ' + err.message); }
   }else{
     saveLocal(STORAGE_KEY, loadLocal(STORAGE_KEY).map(e => e.id===id ? {...e, status} : e));
     renderAll();
@@ -1421,13 +1690,14 @@ async function updateStatus(id, status){
 }
 async function deleteEntry(id, key){
   if(!isAdmin()) return;
-  if(!confirm('حذف هذا السجل نهائياً؟')) return;
+  if(!(await confirmDialog('حذف هذا السجل نهائياً؟ لا يمكن التراجع عن هذا الإجراء.'))) return;
   if(usingRemote()){
     try{
       const res = await postAction({action:'delete', id, ...authParams()});
       if(!res.success) throw new Error(res.error || 'تعذر الحذف');
+      toast('ok','تم حذف السجل');
       await fetchRemoteEntries();
-    }catch(err){ alert('خطأ: ' + err.message); }
+    }catch(err){ toast('er','خطأ: ' + err.message); }
   }else{
     saveLocal(key, loadLocal(key).filter(e=>e.id!==id));
     renderAll();
@@ -1454,9 +1724,9 @@ async function loadUsers(){
     }).join('');
     box.querySelectorAll('button[data-u]').forEach(btn=>{
       btn.addEventListener('click', async ()=>{
-        if(!confirm('إزالة المستخدم "' + btn.dataset.u + '"؟')) return;
+        if(!(await confirmDialog('إزالة المستخدم "' + btn.dataset.u + '"؟'))) return;
         const r = await postAction({action:'removeUser', targetUser: btn.dataset.u, ...authParams()});
-        if(!r.success) alert('خطأ: ' + (r.error||''));
+        if(!r.success) toast('er','خطأ: ' + (r.error||'')); else toast('ok','تمت إزالة المستخدم');
         loadUsers();
       });
     });
@@ -1464,12 +1734,12 @@ async function loadUsers(){
 }
 document.getElementById('addUserBtn').addEventListener('click', async ()=>{
   if(!isAdmin()) return;
-  if(!usingRemote()){ alert('إضافة المستخدمين تتطلب الاتصال بالسجل المركزي'); return; }
+  if(!usingRemote()){ toast('wa','إضافة المستخدمين تتطلب الاتصال بالسجل المركزي'); return; }
   const uname = document.getElementById('nu_name').value.trim();
   const upass = document.getElementById('nu_pass').value;
-  if(!uname || upass.length < 6){ alert('أدخلي اسم مستخدم وكلمة مرور (6 أحرف فأكثر)'); return; }
+  if(!uname || upass.length < 6){ toast('wa','أدخلي اسم مستخدم وكلمة مرور (6 أحرف فأكثر)'); return; }
   const res = await postAction({action:'addUser', newUsername: uname, newPassword: upass, ...authParams()});
-  if(!res.success){ alert('خطأ: ' + (res.error||'')); return; }
+  if(!res.success){ toast('er','خطأ: ' + (res.error||'')); return; }
   document.getElementById('nu_name').value = '';
   document.getElementById('nu_pass').value = '';
   showSuccess('تمت الإضافة ✓', 'أُضيف المستخدم "' + uname + '" — زوديه باسم المستخدم وكلمة المرور للدخول.');
@@ -1503,36 +1773,166 @@ function renderStats(){
     chip.style.display = '';
     chip.textContent = '⏳ بانتظار الاعتماد: ' + st.pending;
   }else{ chip.style.display = 'none'; }
+
+  /* بطاقات الإحصائيات في السجل (للمصرح لهم) */
+  if(isLogged()){
+    const projects = getProjects();
+    document.getElementById('k_total').textContent = projects.length;
+    document.getElementById('k_pending').textContent = projects.filter(e=>normStatus(e)==='pending').length;
+    document.getElementById('k_approved').textContent = projects.filter(e=>normStatus(e)==='approved').length;
+    document.getElementById('k_rejected').textContent = projects.filter(e=>normStatus(e)==='rejected').length;
+  }
 }
 
-/* ---------- الفلاتر ---------- */
+/* ---------- الفلاتر والبحث ---------- */
 function renderFilters(){
   if(!isLogged()) return;
   const projects = getProjects();
   const types = Array.from(new Set(projects.map(e=>e.type).filter(Boolean)));
-  const row = document.getElementById('filterRow');
-  row.innerHTML = `<button data-f="all" class="${currentFilter==='all'?'active':''}">الكل</button>` +
-    types.map(t=>`<button data-f="${escapeHtml(t)}" class="${currentFilter===t?'active':''}">${escapeHtml(t)}</button>`).join('');
-  row.querySelectorAll('button').forEach(btn=>{
-    btn.addEventListener('click', ()=>{ currentFilter = btn.dataset.f; renderFilters(); renderGallery(); });
+  const sel = document.getElementById('typeFilter');
+  const cur = sel.value || 'all';
+  sel.innerHTML = `<option value="all">كل أنواع الطلبات</option>` +
+    types.map(t=>`<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
+  sel.value = types.includes(cur) ? cur : 'all';
+  currentFilter = sel.value;
+}
+
+/* الطلبات بعد البحث والفلاتر */
+function filteredProjects(){
+  const q = searchQuery.trim().toLowerCase();
+  let entries = getProjects().slice().reverse()
+    .filter(e => currentFilter==='all' || e.type===currentFilter)
+    .filter(e => statusFilterVal==='all' || normStatus(e)===statusFilterVal);
+  if(q){
+    entries = entries.filter(e =>
+      [e.name, e.civilId, e.wilayat, e.subject, e.applicant, e.phone]
+        .some(v => v && String(v).toLowerCase().includes(q)));
+  }
+  const order = {pending:0, approved:1, rejected:2};
+  entries.sort((a,b)=>(order[normStatus(a)]??1)-(order[normStatus(b)]??1));
+  return entries;
+}
+
+/* موزّع العرض: جدول / بطاقات / حالات النظام */
+function renderRegistry(){
+  if(!isLogged()) return;
+  const loading = document.getElementById('regLoading');
+  const tableW = document.getElementById('tableWrap');
+  const cards = document.getElementById('galleryList');
+  const empty = document.getElementById('regEmpty');
+  const noRes = document.getElementById('regNoResults');
+  [loading, tableW, cards, empty, noRes].forEach(el=>el.style.display='none');
+
+  if(regLoadingFlag){ loading.style.display=''; return; }
+
+  const all = getProjects();
+  const entries = filteredProjects();
+  if(all.length === 0){ empty.style.display=''; icons(); return; }
+  if(entries.length === 0){ noRes.style.display=''; icons(); return; }
+
+  if(viewMode === 'table'){ tableW.style.display=''; renderTable(entries); }
+  else{ cards.style.display=''; renderGallery(entries); }
+  icons();
+}
+
+/* ---------- الجدول الموحد ---------- */
+const STATUS_LABEL = {pending:'⏳ بانتظار الاعتماد', approved:'✓ معتمد', rejected:'✕ مرفوض'};
+function renderTable(entries){
+  const admin = isAdmin();
+  const body = document.getElementById('tableBody');
+  body.innerHTML = entries.map((e,i)=>{
+    const st = normStatus(e);
+    const date = e.createdAt ? new Date(e.createdAt).toLocaleDateString('ar-OM',{dateStyle:'medium'}) : '';
+    const prev = e.prevSupport === 'نعم'
+      ? `نعم${e.prevSupportDetails?` — ${escapeHtml(e.prevSupportDetails)}`:''}`
+      : (e.prevSupport || '—');
+    const acts = [
+      `<button class="iact v" data-act="view" data-id="${e.id}" title="عرض التفاصيل"><i data-lucide="eye"></i></button>`,
+      (admin && st==='pending') ? `<button class="iact ok-a" data-act="approve" data-id="${e.id}" title="اعتماد"><i data-lucide="check-circle-2"></i></button>` : '',
+      (admin && st==='pending') ? `<button class="iact no-a" data-act="reject" data-id="${e.id}" title="رفض"><i data-lucide="x-circle"></i></button>` : '',
+      `<button class="iact p" data-act="print" data-id="${e.id}" title="طباعة الرسالة"><i data-lucide="printer"></i></button>`,
+      admin ? `<button class="iact d" data-act="del" data-id="${e.id}" title="حذف"><i data-lucide="trash-2"></i></button>` : ''
+    ].join('');
+    return `<tr class="${st==='pending'?'row-pending':''}">
+      <td class="num">${i+1}</td>
+      <td><b>${escapeHtml(e.name)}</b></td>
+      <td class="num">${escapeHtml(e.civilId||'—')}</td>
+      <td>${escapeHtml(e.wilayat||'—')}</td>
+      <td>${escapeHtml(e.type||'—')}</td>
+      <td>${prev}</td>
+      <td><span class="status-chip ${st}">${STATUS_LABEL[st]||st}</span></td>
+      <td class="num">${date}</td>
+      <td><div class="row-acts">${acts}</div></td>
+    </tr>`;
+  }).join('');
+  bindRegistryActions(body);
+}
+
+function bindRegistryActions(container){
+  container.querySelectorAll('[data-act]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.dataset.id;
+      const entry = getProjects().find(x => String(x.id) === String(id));
+      if(btn.dataset.act==='view' && entry) openDetail(entry);
+      else if(btn.dataset.act==='approve') updateStatus(id, 'approved');
+      else if(btn.dataset.act==='reject') updateStatus(id, 'rejected');
+      else if(btn.dataset.act==='del') deleteEntry(id, STORAGE_KEY);
+      else if(btn.dataset.act==='print' && entry) printLetter(entry);
+    });
   });
 }
 
-/* ---------- سجل الطلبات (للمصرح لهم) ---------- */
-function renderGallery(){
-  if(!isLogged()) return;
-  const admin = isAdmin();
-  let entries = getProjects().slice().reverse()
-    .filter(e => currentFilter==='all' || e.type===currentFilter);
-  const order = {pending:0, approved:1, rejected:2};
-  entries.sort((a,b)=>(order[normStatus(a)]??1)-(order[normStatus(b)]??1));
+/* ---------- شاشة تفاصيل الطلب ---------- */
+function openDetail(e){
+  const st = normStatus(e);
+  const date = e.createdAt ? new Date(e.createdAt).toLocaleDateString('ar-OM',{dateStyle:'full'}) : '—';
+  const rows = [
+    ['اسم المستفيدة', e.name], ['الرقم المدني', e.civilId], ['رقم التواصل', e.phone],
+    ['الولاية / المنطقة', e.wilayat], ['نوع الطلب', e.type],
+    ['الدعم السابق', e.prevSupport==='نعم' ? `نعم — ${e.prevSupportDetails||''}` : (e.prevSupport||'—')],
+    ['نسخة إلى', e.center], ['الموضوع', e.subject],
+    ['نص الطلب', e.requestText || e.details], ['مقدمة الطلب', e.applicant],
+    ['تاريخ التقديم', date],
+    ['الحالة', `<span class="status-chip ${st}">${STATUS_LABEL[st]||st}</span>`]
+  ];
+  const docLinks = [
+    ...(e.idCard||[]).map(u=>`<a href="${u}" target="_blank" rel="noopener">🪪 البطاقة الشخصية</a>`),
+    ...(e.otherDocs||[]).map((u,i)=>`<a href="${u}" target="_blank" rel="noopener">📄 مستند ${i+1}</a>`)
+  ].join('');
+  const photos = (e.photos||[]).map(p=>`<img src="${p}" loading="lazy" alt="">`).join('');
 
+  document.getElementById('detailBody').innerHTML =
+    rows.map(r=>`<div class="drow"><span class="k">${r[0]}</span><span class="v">${r[0]==='الحالة'?r[1]:escapeHtml(String(r[1]||'—'))}</span></div>`).join('') +
+    (docLinks?`<div class="doc-links" style="margin-top:12px;">${docLinks}</div>`:'') +
+    (photos?`<div class="dphotos">${photos}</div>`:'');
+
+  const admin = isAdmin();
+  document.getElementById('detailActs').innerHTML = [
+    (admin && st==='pending') ? `<button class="gold" data-act="approve" data-id="${e.id}">اعتماد ✓</button>` : '',
+    (admin && st==='pending') ? `<button style="background:transparent;color:var(--danger);border:1px solid rgba(140,58,44,.4);" data-act="reject" data-id="${e.id}">رفض</button>` : '',
+    `<button data-act="print" data-id="${e.id}">🖨 طباعة الرسالة</button>`,
+    `<button id="detailClose" style="background:transparent;color:var(--ink-soft);border:1px solid var(--sand-line);">إغلاق</button>`
+  ].join(' ');
+
+  document.getElementById('detailActs').querySelectorAll('[data-act]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.getElementById('detailOverlay').classList.remove('show');
+      if(btn.dataset.act==='approve') updateStatus(e.id, 'approved');
+      else if(btn.dataset.act==='reject') updateStatus(e.id, 'rejected');
+      else if(btn.dataset.act==='print') printLetter(e);
+    });
+  });
+  document.getElementById('detailClose').addEventListener('click', ()=>{
+    document.getElementById('detailOverlay').classList.remove('show');
+  });
+  document.getElementById('detailOverlay').classList.add('show');
+}
+
+/* ---------- عرض البطاقات (للمصرح لهم) ---------- */
+function renderGallery(entries){
+  const admin = isAdmin();
   const list = document.getElementById('galleryList');
-  if(entries.length===0){
-    list.innerHTML = '<div class="empty-state">لا توجد طلبات ضمن هذا التصنيف بعد.</div>';
-    return;
-  }
-  const statusLabel = {pending:'⏳ بانتظار الاعتماد', approved:'✓ معتمد', rejected:'✕ مرفوض'};
+  const statusLabel = STATUS_LABEL;
 
   list.innerHTML = entries.map(e=>{
     const st = normStatus(e);
@@ -1574,6 +1974,7 @@ function renderGallery(){
         ${e.subject?`<div class="meta"><b>الموضوع:</b> ${escapeHtml(e.subject)}</div>`:''}
         <p>${escapeHtml(e.requestText||e.details||'')}</p>
         ${docLinks?`<div class="doc-links">${docLinks}</div>`:''}
+        <button class="card-print" data-act="view" data-id="${e.id}">👁 عرض التفاصيل</button>
         <button class="card-print" data-act="print" data-id="${e.id}">🖨 طباعة الرسالة الرسمية</button>
         ${approveRow}
         <div class="foot"><span>${date}</span>${delBtn}</div>
@@ -1581,18 +1982,7 @@ function renderGallery(){
     </div>`;
   }).join('');
 
-  list.querySelectorAll('[data-act]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const id = btn.dataset.id;
-      if(btn.dataset.act==='approve') updateStatus(id, 'approved');
-      else if(btn.dataset.act==='reject') updateStatus(id, 'rejected');
-      else if(btn.dataset.act==='del') deleteEntry(id, STORAGE_KEY);
-      else if(btn.dataset.act==='print'){
-        const entry = getProjects().find(x => String(x.id) === String(id));
-        if(entry) printLetter(entry);
-      }
-    });
-  });
+  bindRegistryActions(list);
 }
 
 /* ---------- معرض الفعاليات (عام) ---------- */
@@ -1628,9 +2018,61 @@ function renderEvents(){
 function renderAll(){
   renderStats();
   renderFilters();
-  renderGallery();
+  renderRegistry();
   renderEvents();
+  icons();
 }
+
+
+/* ---------- معالجات شريط الأدوات ---------- */
+document.getElementById('regSearch').addEventListener('input', function(){
+  searchQuery = this.value; renderRegistry();
+});
+document.getElementById('typeFilter').addEventListener('change', function(){
+  currentFilter = this.value; renderRegistry();
+});
+document.getElementById('statusFilter').addEventListener('change', function(){
+  statusFilterVal = this.value; renderRegistry();
+});
+document.getElementById('viewTable').addEventListener('click', function(){
+  viewMode = 'table';
+  this.classList.add('active');
+  document.getElementById('viewCards').classList.remove('active');
+  renderRegistry();
+});
+document.getElementById('viewCards').addEventListener('click', function(){
+  viewMode = 'cards';
+  this.classList.add('active');
+  document.getElementById('viewTable').classList.remove('active');
+  renderRegistry();
+});
+document.getElementById('refreshBtn').addEventListener('click', async ()=>{
+  await fetchRemoteEntries();
+  toast('in','تم تحديث السجل');
+});
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  const entries = filteredProjects();
+  if(entries.length===0){ toast('wa','لا توجد بيانات للتصدير'); return; }
+  const cols = ['اسم المستفيدة','الرقم المدني','رقم التواصل','الولاية','نوع الطلب','الدعم السابق','تفاصيل الدعم السابق','نسخة إلى','الموضوع','نص الطلب','مقدمة الطلب','الحالة','التاريخ'];
+  const rows = entries.map(e=>[
+    e.name, e.civilId, e.phone, e.wilayat, e.type,
+    e.prevSupport||'', e.prevSupportDetails||'', e.center||'', e.subject||'',
+    (e.requestText||e.details||''), e.applicant||'',
+    STATUS_LABEL[normStatus(e)]||'', e.createdAt ? new Date(e.createdAt).toLocaleDateString('ar-OM') : ''
+  ]);
+  const esc = v => '\"' + String(v==null?'':v).replace(/\"/g,'\"\"').replace(/\n/g,' ') + '\"';
+  const csv = '\ufeff' + [cols, ...rows].map(r=>r.map(esc).join(',')).join('\r\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'سجل-طلبات-المرأة-الريفية.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('ok','تم تصدير ' + entries.length + ' طلباً إلى Excel');
+});
+document.getElementById('detailOverlay').addEventListener('click', function(ev){
+  if(ev.target === this) this.classList.remove('show');
+});
 
 /* ---------- التهيئة ---------- */
 applyRoleUI();
