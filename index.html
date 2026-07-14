@@ -53,28 +53,29 @@
   </div>
 </div>
 <script>
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyn_ySOT5PVmmANgUfyMTlxhQ4xE8svsoa_6-EwaijvFlvYZqkM2h4KkVokDyU8diJGpQ/exec';
-
-function fail(msg){
-  document.getElementById('spin').style.display = 'none';
-  const err = document.getElementById('err');
-  err.style.display = 'block';
-  err.querySelector('p').textContent = msg;
-}
-fetch(APPS_SCRIPT_URL + '?page=app')
-  .then(r => r.json())
-  .then(j => {
-    if(j && j.success && j.html){
-      document.open();
-      document.write(j.html);
-      document.close();
-    }else if(j && j.success && !j.html){
-      fail('النسخة المنشورة من السكربت قديمة — نفّذي: Manage deployments ← ✏ ← New version ← Deploy');
-    }else{
-      fail('خطأ من السكربت: ' + ((j && j.error) || 'غير معروف') + ' — تأكدي من وجود ملف باسم app في المشروع');
-    }
-  })
-  .catch(() => fail('تعذّر الوصول للسكربت — تحققي من الاتصال بالإنترنت ثم أعيدي المحاولة'));
+(function(){
+  var RW_URL = 'https://script.google.com/macros/s/AKfycbyn_ySOT5PVmmANgUfyMTlxhQ4xE8svsoa_6-EwaijvFlvYZqkM2h4KkVokDyU8diJGpQ/exec';
+  function fail(msg){
+    document.getElementById('spin').style.display = 'none';
+    var err = document.getElementById('err');
+    err.style.display = 'block';
+    err.querySelector('p').textContent = msg;
+  }
+  fetch(RW_URL + '?page=app')
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(j && j.success && j.html){
+        document.open();
+        document.write(j.html);
+        document.close();
+      }else if(j && j.success && !j.html){
+        fail('النسخة المنشورة من السكربت قديمة — نفّذي: Manage deployments ← ✏ ← New version ← Deploy');
+      }else{
+        fail('خطأ من السكربت: ' + ((j && j.error) || 'غير معروف') + ' — تأكدي من وجود ملف باسم app في المشروع');
+      }
+    })
+    .catch(function(){ fail('تعذّر الوصول للسكربت — تحققي من الاتصال ثم أعيدي المحاولة'); });
+})();
 </script>
 </body>
 </html>
